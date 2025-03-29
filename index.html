@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Password</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+    }
+    h1 {
+      font-size: 16px;
+    }
+    span {
+      color: #007bff;
+    }
+    .display {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+ 
+    input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 16px;
+    }
+    img {
+      cursor: pointer;
+      width: 20px;
+    }
+    /* button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background:rgb(36, 109, 36);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    } */
+
+    @media (max-width: 786px) {
+      .container {
+        width: 100%;
+        padding: 15px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Generate a <br><span>Random Password</span></h1>
+    <div class="display">
+      <input type="text" id="password" placeholder="Password" readonly>
+      <img src="images/copy.png" onclick="copyPassword()">
+    </div>
+    <!-- <button onclick="createPassword()" style="border-radius: 6px;background-color: rgb(23, 179, 23);color: rgb(23, 179, 23); border:1px solid rgb(23, 179, 23);padding: 7px;">
+     <span><img src="images/generate.png" alt=""></span><span style="color: white;font-size: 17px;">Generate Password</span>
+    </button> -->
+    <div style="display: flex;justify-content: center;">
+    <button onclick="createPassword()" style="display: flex; justify-content:center; border-radius: 6px;background-color: rgb(23, 179, 23);color: rgb(23, 179, 23); border:1px solid rgb(23, 179, 23);padding: 7px; align-items: center;">
+      <div><img src="images/generate.png"></div>
+      <div style="color: white;font-weight: 700;">Generate Password</div>
+    </button>
+    </div>
+  </div>
+
+  <script>
+    const passwordBox = document.getElementById("password");
+    const length = 12;
+
+    const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    const number = "0123456789";
+    const symbol = "@#$%^&*()_+~|}{[]></-=";
+
+    const allChars = upperCase + lowerCase + number + symbol;
+
+    function createPassword(){
+      let password = "";
+      password += upperCase[Math.floor(Math.random() * upperCase.length)];
+      password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+      password += number[Math.floor(Math.random() * number.length)];
+      password += symbol[Math.floor(Math.random() * symbol.length)];
+
+      while (password.length < length) {
+        password += allChars[Math.floor(Math.random() * allChars.length)];
+      }
+      passwordBox.value = password;
+    }
+
+    function copyPassword(){
+      passwordBox.select();
+      navigator.clipboard.writeText(passwordBox.value);
+    }
+  </script>
+</body>
+</html>
